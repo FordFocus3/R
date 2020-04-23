@@ -8,7 +8,7 @@
 Для выбора оптимального k используют метод скользащего контроля (LOO).
 Применив kNN и LOO к датасету Ириса Фишера получим результат:
 
-![](https://github.com/limited1004/machine_learning/blob/master/imgs/LOO_kNN.png)
+![](https://github.com/FordFocus3/machine_learning/blob/master/imgs/LOO_kNN.png)
 
 
 Видно, что лучишй результат получаем при k = 6, с оценкой ошибки равной 0.33, что равно 96% успешных классификаций.
@@ -16,18 +16,18 @@
  kNN — один из простейших алгоритмов классификации, поэтому на реальных задачах он зачастую оказывается неэффективным. Помимо точности классификации, проблемой этого классификатора является скорость классификации: если в обучающей выборке N объектов, в тестовой выборе M объектов, а размерность пространства — K, то количество операций для классификации тестовой выборки может быть оценено как O(K*M*N).
 
 Карта классификации для kNN:  
-![](https://github.com/limited1004/machine_learning/blob/master/imgs/map_knn.png)
+![](https://github.com/FordFocus3/machine_learning/blob/master/imgs/map_knn.png)
 ### kwNN
 Алогоритм k взвешенных ближайших соседей:
 ![equation](http://latex.codecogs.com/gif.latex?w(i,&space;u)&space;=&space;[i&space;\leq&space;k]w(i);&space;a(u;&space;X^l,&space;k)&space;=&space;argmax_{y\epsilon&space;Y}&space;\sum^k_{i&space;=&space;1}{[y^i_{u}&space;=&space;y]}w(i))
 возьмем за вес ![equation](http://latex.codecogs.com/gif.latex?w(i)&space;=&space;q^i,q\epsilon&space;(0,1)), и его же будем перебирать по LOO при фиксированном k = 6, получим результат:
-![](https://github.com/limited1004/machine_learning/blob/master/imgs/loo_kwnn.png)
+![](https://github.com/FordFocus3/machine_learning/blob/master/imgs/loo_kwnn.png)
 Видем что лучший результат при k = 6 и q = 1. Равен 0.33, что примерно 96% успешных классификаций.
 Зачем использовать kwNN если там больше расчетов? В задачах с числом классов 3 и более нечётность уже не помогает и сутации неодназначности могут возниктаь. Тогда на помошь приходят веса, и объект классифицируется к тому классу, чей суммарны вес больше среди k соседий.
 
 
 Карта классификации для kWNN:  
-![](https://github.com/limited1004/machine_learning/blob/master/imgs/map_kWNN.png)
+![](https://github.com/FordFocus3/machine_learning/blob/master/imgs/map_kWNN.png)
 
 
 # Байесовские алгоритмы классификации
@@ -35,11 +35,11 @@
 Будем полагать, что все объекы описываются n числовыми признаками. Обозначим через ![equation](http://latex.codecogs.com/gif.latex?x=(\xi_1,...,\xi_n&space;)), произвольный элемент пространства объектов ![equation](http://latex.codecogs.com/gif.latex?X&space;=&space;\mathbb{R}^n,&space;\varepsilon&space;_i=f_i(x)). Предположим, что все признаки ![equation](http://latex.codecogs.com/gif.latex?f_1,...,f_n) являются независимыми случайными величинами. Следовательно, функции правдоподобия классов представимы в виде,![equation](http://latex.codecogs.com/gif.latex?p_y(x)=p_{y1}(\xi_1)...p_{yn}(\xi_n),&space;y\epsilon&space;Y) где ![equation](http://latex.codecogs.com/gif.latex?p_{yj}(\xi_j)) - плотность распределений значений jго признака для класса y. Оценивать n одномерных плотностей гораздо проще, чем одну n-мерную плотность. Однако данное предположение крайне редко работает на практике, поэтому алгоритмы, использующий его, называют наивным байесовким методом.
 Произведем построение алогритма на модельной выборке.
 Получим линейноразделимое мн-во признаков:
-![](https://github.com/limited1004/machine_learning/blob/master/r_studio/naive_dots.png)
+![](https://github.com/FordFocus3/machine_learning/blob/master/r_studio/naive_dots.png)
 
 И после приминения классификатора получим карту классификации:
 
-![](https://github.com/limited1004/machine_learning/blob/master/r_studio/naive_map.png)
+![](https://github.com/FordFocus3/machine_learning/blob/master/r_studio/naive_map.png)
 
 Плюсы наивного байесовского классификатора:
 
@@ -72,4 +72,4 @@
 Оптимум Adaline на 2 шаге
 Оптимум Hebb's rule на 9 шаге
 
-![](https://github.com/limited1004/machine_learning/blob/master/r_studio/adaline_hebb_step.png)
+![](https://github.com/FordFocus3/machine_learning/blob/master/r_studio/adaline_hebb_step.png)
