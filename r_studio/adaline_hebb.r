@@ -1,4 +1,4 @@
-## Нормализация обучающей выборки
+## ГЌГ®Г°Г¬Г Г«ГЁГ§Г Г¶ГЁГї Г®ГЎГіГ·Г ГѕГ№ГҐГ© ГўГ»ГЎГ®Г°ГЄГЁ
 trainingSampleNormalization <- function(xl)
 {
   n <- dim(xl)[2] - 1
@@ -8,7 +8,7 @@ trainingSampleNormalization <- function(xl)
   }
   return (xl)
 }
-## Добавление колонки для из -1 для w0
+## Г„Г®ГЎГ ГўГ«ГҐГ­ГЁГҐ ГЄГ®Г«Г®Г­ГЄГЁ Г¤Г«Гї ГЁГ§ -1 Г¤Г«Гї w0
 trainingSamplePrepare <- function(xl)
 {
   l <- dim(xl)[1]
@@ -16,24 +16,24 @@ trainingSamplePrepare <- function(xl)
   xl <- cbind(xl[, 1:n], seq(from = -1, to = -1,
                              length.out = l), xl[, n + 1])
 }
-  ## Квадратичная функция потерь
+  
   lossQuad <- function(x)
   {
     return ((x-1)^2)
   }
-  ## Стохастический градиент для ADALINE
+ 
   sg <- function(xl,coll, eta = 1, lambda = 1/6, eps = 1e-5) {
     l <- dim(xl)[1]
     n <- dim(xl)[2] - 1
     w <- rep(0.5, n)
     iterCount <- 0
     
-    ## initialize Q
+   
     Q <- 0
     
     for (i in 1:l)
     {
-      ## calculate the scalar product <w,x>
+      
       xi <- xl[i, 1:n]
       yi <- xl[i, n + 1]
       mi <-sum(w*xi) * yi
@@ -48,7 +48,7 @@ trainingSamplePrepare <- function(xl)
         break
       }
       
-      ## calculate the margins for all objects of the training sample
+      
       margins <- array(dim = l)
       for (i in 1:l){
         xi <- xl[i, 1:n]
@@ -58,18 +58,18 @@ trainingSamplePrepare <- function(xl)
         
       }
       
-      ## select the error objects
+    
       errorIndexes <- which(margins <= 0)
       if (length(errorIndexes) > 0)
       {
-        # select the random index from the errors
+       
         i <- sample(errorIndexes, 1)
         iterCount <- iterCount + 1
         xi <- xl[i, 1:n]
         yi <- xl[i, n + 1]
         
         
-        ## calculate an error
+       
         mi <- sum(w*xi)*yi
         ex <- (mi-1)^2
         ld <- (mi/yi - yi) * xi
@@ -82,7 +82,7 @@ trainingSamplePrepare <- function(xl)
         y <- f(x)
         lines(x, y, type="l",col=coll)
         
-        ## Calculate a new Q
+      
         Qprev <- Q
         Q <- (1 - lambda) * Q + lambda * ex
         if (abs(Q - Qprev) < 1e-5) {
@@ -98,12 +98,12 @@ trainingSamplePrepare <- function(xl)
     }
     return(w)
   }
-## Функция потерь для правила Хэбба
+## Г”ГіГ­ГЄГ¶ГЁГї ГЇГ®ГІГҐГ°Гј Г¤Г«Гї ГЇГ°Г ГўГЁГ«Г  Г•ГЅГЎГЎГ 
 lossPerceptron <- function(x)
 {
   return (max(-x, 0))
 }
-## Стохастический градиент с правилом Хебба
+## Г‘ГІГ®ГµГ Г±ГІГЁГ·ГҐГ±ГЄГЁГ© ГЈГ°Г Г¤ГЁГҐГ­ГІ Г± ГЇГ°Г ГўГЁГ«Г®Г¬ Г•ГҐГЎГЎГ 
 sg.Hebb <- function(xl, eta = 0.1, lambda = 1/6)
 {
   x = 1
@@ -133,7 +133,7 @@ sg.Hebb <- function(xl, eta = 0.1, lambda = 1/6)
       
       break
     }
-        ## Поиск ошибочных объектов
+        ## ГЏГ®ГЁГ±ГЄ Г®ГёГЁГЎГ®Г·Г­Г»Гµ Г®ГЎГєГҐГЄГІГ®Гў
     margins <- array(dim = l)
     for (i in 1:l)
     {
@@ -143,11 +143,11 @@ sg.Hebb <- function(xl, eta = 0.1, lambda = 1/6)
       margins[i] <- crossprod(w, xi) * yi
     }
     
-    ## выбрать ошибочные объекты
+    ## ГўГ»ГЎГ°Г ГІГј Г®ГёГЁГЎГ®Г·Г­Г»ГҐ Г®ГЎГєГҐГЄГІГ»
     errorIndexes <- which(margins <= 0)
     if (length(errorIndexes) > 0)
     {
-      # выбрать случайный ошибочный объект
+      # ГўГ»ГЎГ°Г ГІГј Г±Г«ГіГ·Г Г©Г­Г»Г© Г®ГёГЁГЎГ®Г·Г­Г»Г© Г®ГЎГєГҐГЄГІ
       i <- sample(errorIndexes, 1)
       
       iterCount <- iterCount + 1
@@ -169,17 +169,17 @@ sg.Hebb <- function(xl, eta = 0.1, lambda = 1/6)
   
   return (w)
 }
-## Логарифмическая функция потерь
+## Г‹Г®ГЈГ Г°ГЁГґГ¬ГЁГ·ГҐГ±ГЄГ Гї ГґГіГ­ГЄГ¶ГЁГї ГЇГ®ГІГҐГ°Гј
 lossLog <- function(x)
 {
   return (log2(1 + exp(-x)))
 }
-## Сигмоидная функция
+## Г‘ГЁГЈГ¬Г®ГЁГ¤Г­Г Гї ГґГіГ­ГЄГ¶ГЁГї
 sigmoidFunction <- function(z)
 
-# Кол-во объектов в каждом классе
+# ГЉГ®Г«-ГўГ® Г®ГЎГєГҐГЄГІГ®Гў Гў ГЄГ Г¦Г¤Г®Г¬ ГЄГ«Г Г±Г±ГҐ
 ObjectsCountOfEachClass <- 100
-## Моделируем обучающие данные
+## ГЊГ®Г¤ГҐГ«ГЁГ°ГіГҐГ¬ Г®ГЎГіГ·Г ГѕГ№ГЁГҐ Г¤Г Г­Г­Г»ГҐ
 library(MASS)
 Sigma1 <- matrix(c(2, 0, 0, 10), 2, 2)
 Sigma2 <- matrix(c(4, 1, 1, 2), 2, 2)
@@ -190,19 +190,19 @@ xy2 <- mvrnorm(n=ObjectsCountOfEachClass, c(10, -10),
 xl <- rbind(cbind(xy1, -1), cbind(xy2, +1))
 colors <- c(rgb(255/255, 255/255, 0/255), "white",
             rgb(0/255, 200/255, 0/255))
-## Нормализация данных
+## ГЌГ®Г°Г¬Г Г«ГЁГ§Г Г¶ГЁГї Г¤Г Г­Г­Г»Гµ
 xlNorm <- trainingSampleNormalization(xl)
 xlNorm <- trainingSamplePrepare(xlNorm)
-## Отображение данных
+## ГЋГІГ®ГЎГ°Г Г¦ГҐГ­ГЁГҐ Г¤Г Г­Г­Г»Гµ
 ## ADALINE
 plot(xlNorm[, 1], xlNorm[, 2], pch = 21, bg = colors[xl[,3]
-                                                     + 2], asp = 1, xlab = "x1", ylab = "x2", main = "Линейные
-классификаторы")
+                                                     + 2], asp = 1, xlab = "x1", ylab = "x2", main = "Г‹ГЁГ­ГҐГ©Г­Г»ГҐ
+ГЄГ«Г Г±Г±ГЁГґГЁГЄГ ГІГ®Г°Г»")
 w <- sg(xlNorm,coll="blue")
 abline(a = w[3] / w[2], b = -w[1] / w[2], lwd = 3, col = "blue")
-## Правило Хебба
+## ГЏГ°Г ГўГЁГ«Г® Г•ГҐГЎГЎГ 
 w <- sg.Hebb(xlNorm)
 abline(a = w[3] / w[2], b = -w[1] / w[2], lwd = 3, col =
          "green3")
 
-legend("bottomleft", c("ADALINE", "Правило Хэбба"), pch = c(15,15,15), col =c("blue", "green3"))
+legend("bottomleft", c("ADALINE", "ГЏГ°Г ГўГЁГ«Г® Г•ГЅГЎГЎГ "), pch = c(15,15,15), col =c("blue", "green3"))
